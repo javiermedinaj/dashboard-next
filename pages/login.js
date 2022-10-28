@@ -12,20 +12,32 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
+import { useRef } from 'react';
 
-export default function SimpleCard() {
+export default function login() {
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        // console.log(password, email)
+    }
+
+
     return (
         <Flex
             minH={'100vh'}
             align={'center'}
             justify={'center'}
             bg={useColorModeValue('gray.50', 'gray.800')}>
-            <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+            <Stack spacing={2} mx={'auto'} py={2} px={6}>
                 <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-                    <Text fontSize={'lg'} color={'gray.600'}>
-                        <Link href="/" color={'blue.400'}>Volver atras</Link> ✌️
-                    </Text>
+                    <Heading fontSize={'4xl'}
+                        mb={10}>Sign in to your account</Heading>
+
                 </Stack>
                 <Box
                     rounded={'lg'}
@@ -33,31 +45,38 @@ export default function SimpleCard() {
                     boxShadow={'lg'}
                     p={8}>
                     <Stack spacing={4}>
-                        <FormControl id="email">
+                        <form onSubmit={submitHandler}>
                             <FormLabel>Email address</FormLabel>
-                            <Input type="email" />
-                        </FormControl>
-                        <FormControl id="password">
+                            <Input type="email"
+                                id="email"
+                                required
+                                ref={emailRef}
+                            />
                             <FormLabel>Password</FormLabel>
-                            <Input type="password" />
-                        </FormControl>
-                        <Stack spacing={10}>
-                            <Stack
-                                direction={{ base: 'column', sm: 'row' }}
-                                align={'start'}
-                                justify={'space-between'}>
-                                <Checkbox>Remember me</Checkbox>
-                                <Link color={'blue.400'}>Forgot password?</Link>
+                            <Input type="password"
+                                id="password"
+                                required
+                                ref={passwordRef}
+                            />
+                            <Stack spacing={10}>
+                                <Stack
+                                    direction={{ base: 'column', sm: 'row' }}
+                                    align={'start'}
+                                    justify={'space-between'}>
+                                    <Checkbox>Remember me</Checkbox>
+                                    <Link color={'blue.400'}>Forgot password?</Link>
+                                </Stack>
+                                <Button
+                                    type="submit"
+                                    bg={'blue.400'}
+                                    color={'white'}
+                                    _hover={{
+                                        bg: 'blue.500',
+                                    }}>
+                                    Sign in
+                                </Button>
                             </Stack>
-                            <Button
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                                Sign in
-                            </Button>
-                        </Stack>
+                        </form>
                     </Stack>
                 </Box>
             </Stack>

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import {
+    Link,
     Box,
     chakra,
     Container,
@@ -7,7 +7,8 @@ import {
     Stack,
     Text,
     VisuallyHidden,
-    useColorModeValue
+    useColorModeValue,
+    Image
 } from "@chakra-ui/react"
 import { FaGithub, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa"
 
@@ -58,7 +59,9 @@ export default function Footer() {
                 >
                     <Stack spacing={6}>
                         <Box>
-                            logo
+                            <Image
+                                src="images/logo.png"
+                            />
                         </Box>
 
                         <Stack direction={"row"} spacing={6}>
@@ -78,11 +81,11 @@ export default function Footer() {
                     </Stack>
                     <Stack align={"flex-start"}>
                         <ListHeader>About</ListHeader>
-                        <Link href={"https://www.linkedin.com/in/javier-medina-783b721a9/"}>Contact</Link>
-                        <Link href="https://github.com/javiermedinaj?tab=repositories">My repositories</Link>
-                        <Link href="https://github.com/javiermedinaj/next-palta">Repository for this project</Link>
-                        <Link href="https://nextjs.org/">Framework</Link>
-                        <Link href={"https://chakra-ui.com/getting-started"}> Styles</Link>
+                        <Link target="_blank" href="https://www.linkedin.com/in/javier-medina-783b721a9/">Contact</Link>
+                        <Link target="_blank" href="https://github.com/javiermedinaj?tab=repositories">My repositories</Link>
+                        <Link target="_blank" href="https://github.com/javiermedinaj/dashboard-next">Repository for this project</Link>
+                        <Link target="_blank" href="https://nextjs.org/">Framework</Link>
+                        <Link target="_blank" href="https://chakra-ui.com/getting-started"> Styles</Link>
                     </Stack>
                 </SimpleGrid>
             </Container>
