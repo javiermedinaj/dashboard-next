@@ -1,7 +1,6 @@
 import {
     Flex,
     Box,
-    FormControl,
     FormLabel,
     Input,
     Checkbox,
@@ -9,19 +8,37 @@ import {
     Link,
     Button,
     Heading,
-    Text,
     useColorModeValue,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+
 } from '@chakra-ui/react';
 import { useRef } from 'react';
+
+import { useAuth } from '../hooks/useAuth'
+
 
 export default function login() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
+    const auth = useAuth()
+
 
     const submitHandler = (event) => {
         event.preventDefault();
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
+
+        auth.signIn(email, password).then(() => {
+            console.log('login sucess')
+        },
+            (reason) => {
+                console.log('Error en logeo');
+                console.log(reason);
+                auth.setError('Nombre de usuario o contraseña invalida')
+            })
+
 
         // console.log(password, email)
     }
@@ -64,7 +81,7 @@ export default function login() {
                                     align={'start'}
                                     justify={'space-between'}>
                                     <Checkbox>Remember me</Checkbox>
-                                    <Link color={'blue.400'}>Forgot password?</Link>
+                                    <Link color={'blue.400'} href="/recovery">Forgot password?</Link>
                                 </Stack>
                                 <Button
                                     type="submit"
@@ -76,6 +93,13 @@ export default function login() {
                                     Sign in
                                 </Button>
                             </Stack>
+                            {auth.error ? (
+                                <Alert status='error'
+                                    mt={2}>
+                                    <AlertIcon />
+                                    <AlertTitle>Error en logearse</AlertTitle>
+                                    {/* <AlertDescription>Contraseña o usuario incorrecto</AlertDescription> */}
+                                    {auth.error}  </Alert>) : null}
                         </form>
                     </Stack>
                 </Box>

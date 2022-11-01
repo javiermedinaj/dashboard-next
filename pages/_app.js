@@ -1,14 +1,17 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import Layout from '../components/Layout'
 
+import { ProviderAuth } from '../hooks/useAuth'
+
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider>
-      <Layout>
-
-        <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <ProviderAuth>
+      <ChakraProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
+    </ProviderAuth>
   )
 }
 
