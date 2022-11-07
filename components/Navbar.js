@@ -18,11 +18,21 @@ import {
 
 } from "@chakra-ui/react"
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
-
+// import { useAuth } from '../hooks/useAuth'
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
+
+    // const auth = useAuth();
+
+    // const userData = {
+    //     name: auth?.user?.name,
+    //     email: auth?.user?.email,
+    //     imageUrl: `https://ui-avatars.com/api/?name=?{auth?.user?.name}`,
+    //     role: auth?.user?.role
+    // }
+
     return (
         <>
             <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -63,10 +73,17 @@ export default function Navbar() {
                                     size={"sm"}
                                     src="images/dashboard.jpg"
                                 />
+
                             </MenuButton>
                             <MenuList>
-                                <MenuDivider />
-                                <MenuItem>Salir</MenuItem>
+
+                                {/* <MenuItem>{userData.name}</MenuItem>
+                                <MenuItem>{userData.email}</MenuItem>
+                                <MenuItem>{userData.role}</MenuItem>
+                                <MenuDivider /> */}
+                                <MenuItem>
+                                    <Link href="/">Salir</Link>
+                                </MenuItem>
                             </MenuList>
                         </Menu>
                     </Flex>
@@ -77,7 +94,7 @@ export default function Navbar() {
                         <Stack as={"nav"} spacing={4}>
                             <Link href="/"> Inicio</Link>
                             <Link href="/login">Login</Link>
-                            <Link href="dashboard"> Dashboard</Link>
+                            <Link href="/dashboard"> Dashboard</Link>
                             <Link href="/about"> About</Link>
                         </Stack>
                     </Box>

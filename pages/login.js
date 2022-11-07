@@ -15,7 +15,7 @@ import {
 
 } from '@chakra-ui/react';
 import { useRef } from 'react';
-
+import { useRouter } from 'next/router'
 import { useAuth } from '../hooks/useAuth'
 
 
@@ -23,7 +23,7 @@ export default function login() {
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
     const auth = useAuth()
-
+    const router = useRouter()
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -31,7 +31,7 @@ export default function login() {
         const password = passwordRef.current.value;
 
         auth.signIn(email, password).then(() => {
-            console.log('login sucess')
+            router.push('/dashboard')
         },
             (reason) => {
                 console.log('Error en logeo');
@@ -40,7 +40,7 @@ export default function login() {
             })
 
 
-        // console.log(password, email)
+
     }
 
 
@@ -72,6 +72,8 @@ export default function login() {
                             <FormLabel>Password</FormLabel>
                             <Input type="password"
                                 id="password"
+                                name="password"
+                                autoComplete="on"
                                 required
                                 ref={passwordRef}
                             />
@@ -98,7 +100,7 @@ export default function login() {
                                     mt={2}>
                                     <AlertIcon />
                                     <AlertTitle>Error en logearse</AlertTitle>
-                                    {/* <AlertDescription>Contraseña o usuario incorrecto</AlertDescription> */}
+
                                     {auth.error}  </Alert>) : null}
                         </form>
                     </Stack>
