@@ -10,28 +10,26 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider,
     useDisclosure,
     useColorMode,
     useColorModeValue,
     Stack,
-
 } from "@chakra-ui/react"
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
-// import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../hooks/useAuth'
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { colorMode, toggleColorMode } = useColorMode()
 
-    // const auth = useAuth();
+    const auth = useAuth();
 
-    // const userData = {
-    //     name: auth?.user?.name,
-    //     email: auth?.user?.email,
-    //     imageUrl: `https://ui-avatars.com/api/?name=?{auth?.user?.name}`,
-    //     role: auth?.user?.role
-    // }
+    const userData = {
+        name: auth?.user?.name,
+        email: auth?.user?.email,
+        imageUrl: `https://ui-avatars.com/api/?name=${auth?.user?.name}`
+    }
+
 
     return (
         <>
@@ -71,19 +69,20 @@ export default function Navbar() {
                             >
                                 <Avatar
                                     size={"sm"}
-                                    src="images/dashboard.jpg"
+                                    src={userData.imageUrl}
                                 />
 
                             </MenuButton>
                             <MenuList>
 
-                                {/* <MenuItem>{userData.name}</MenuItem>
+                                <MenuItem>{userData.name}</MenuItem>
                                 <MenuItem>{userData.email}</MenuItem>
                                 <MenuItem>{userData.role}</MenuItem>
-                                <MenuDivider /> */}
-                                <MenuItem>
-                                    <Link href="/">Salir</Link>
-                                </MenuItem>
+
+
+                                <Button onClick={() => auth.logout()}
+                                    ml={15}>Salir</Button>
+
                             </MenuList>
                         </Menu>
                     </Flex>

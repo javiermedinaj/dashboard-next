@@ -38,9 +38,6 @@ export default function login() {
                 console.log(reason);
                 auth.setError('Nombre de usuario o contraseña invalida')
             })
-
-
-
     }
 
 

@@ -10,8 +10,13 @@ import {
     Image,
     Link,
 } from '@chakra-ui/react'
-const people = [
 
+import endPoints from '../../services/api'
+import useFetch from '../../hooks/useFetch'
+
+import { Chart } from '../../components/Chart'
+
+const people = [
     {
         name: 'Jane Cooper',
         title: 'Paradigm Technician',
@@ -44,10 +49,38 @@ const people = [
     },
 ];
 
+
+
+const PRODUCT_LIMIT = 10;
+const PRODUCT_OFFSET = 10;
+
 export default function Dashboard() {
+    const products = useFetch(endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET));
+
+    const categoryNames = products?.map((product) => product.category);
+    const categoryCount = categoryNames?.map((category) => category.name);
+
+    const countOccurrences = (arr) => arr.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {});
+
+    const data = {
+        datasets: [
+            {
+                label: 'Categories',
+                data: countOccurrences(categoryCount),
+                borderWidth: 2,
+                backgroundColor: ['#ffbb11', '#c0c0c0', '#50AF95', 'f3ba2f', '#2a71d0'],
+            },
+        ],
+    };
+
     return (
         <>
-            <TableContainer p={2}>
+            <Chart chartData={data}
+
+                mt={10}
+            />
+            <TableContainer p={2}
+                mt={10}>
                 <Table variant='simple' size='sm'
                 >
                     <TableCaption>Click sobre la foto para editar </TableCaption>
@@ -83,6 +116,7 @@ export default function Dashboard() {
                         ))}
                     </Tbody>
                 </Table>
+
             </TableContainer>
         </>
     );
