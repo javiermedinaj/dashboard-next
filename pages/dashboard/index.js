@@ -9,47 +9,12 @@ import {
     TableContainer,
     Image,
     Link,
+    Tooltip
 } from '@chakra-ui/react'
-
 import endPoints from '../../services/api'
 import useFetch from '../../hooks/useFetch'
-
 import { Chart } from '../../components/Chart'
-
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    {
-        name: 'Jane Cooper',
-        title: 'Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    }, {
-        name: 'Jane Cooper',
-        title: 'Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    }, {
-        name: 'Jane Cooper',
-        title: 'Paradigm Technician',
-        department: 'Optimization',
-        role: 'Admin',
-        email: 'jane.cooper@example.com',
-        image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-];
-
-
+import { CloseIcon } from '@chakra-ui/icons'
 
 const PRODUCT_LIMIT = 10;
 const PRODUCT_OFFSET = 10;
@@ -75,10 +40,7 @@ export default function Dashboard() {
 
     return (
         <>
-            <Chart chartData={data}
-
-                mt={10}
-            />
+            <Chart chartData={data} />
             <TableContainer p={2}
                 mt={10}>
                 <Table variant='simple' size='sm'
@@ -87,37 +49,53 @@ export default function Dashboard() {
                     <Thead>
                         <Tr>
                             <Th>Foto</Th>
-                            <Th>Name</Th>
-                            {/* <Th>Title</Th> */}
-                            <Th> Status</Th>
-                            <Th>Role</Th>
-
+                            <Th>Category</Th>
+                            <Th>Price</Th>
+                            <Th>Del</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
-                        {people.map((person, i) => (
-                            <Tr key={i}>
-                                <Td>
+                        {products?.map((product) => (
+                            <Tr key={`Product-item-${product.id}`}>
+                                <Td >
+                                    <div>
+                                        <div>
+                                            <Link href="/edit">
+                                                <Tooltip
+                                                    label={product.title}
+                                                    bg="white"
+                                                    placement={'top'}
+                                                    color={'gray.800'}
+                                                    fontSize={'1.2em'}>
+                                                    <Image borderRadius='full'
+                                                        boxSize='50px' src={product.images[0]} alt=""
+                                                    />
 
-                                    <Link href="/edit">
-                                        <Image src={person.image}
-                                            borderRadius='full'
-                                            boxSize='50px'
-                                        >
-                                        </Image>
+                                                </Tooltip>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </Td>
+                                <Td>
+                                    <div>{product.category.name}</div>
+                                </Td>
+                                <Td >
+                                    <span>${product.price}</span>
+                                </Td>
+                                <Td >
+
+                                    <Link href="/">
+                                        <CloseIcon />
                                     </Link>
                                 </Td>
-                                <Td>{person.name}</Td>
-                                {/* <Td>{person.title}</Td> */}
-                                <Td>{person.department}</Td>
-                                <Td>{person.role}</Td>
-
                             </Tr>
                         ))}
+
                     </Tbody>
                 </Table>
 
             </TableContainer>
+
         </>
     );
 }
