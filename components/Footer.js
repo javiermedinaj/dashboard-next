@@ -61,6 +61,7 @@ export default function Footer() {
                         <Box>
                             <Image
                                 src="images/logo.png"
+                                alt="logo"
                             />
                         </Box>
 

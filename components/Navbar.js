@@ -54,8 +54,8 @@ export default function Navbar() {
                         >
                             <Link href="/"> Inicio</Link>
                             <Link href="/login">Login</Link>
-                            <Link href="/dashboard"> Dashboard</Link>
-                            <Link href="/about"> About</Link>
+                            <Link href="/product"> Products</Link>
+                            <Link href="/about"> About Me</Link>
                         </HStack>
                     </HStack>
                     <Flex alignItems={"center"}>
@@ -76,7 +76,7 @@ export default function Navbar() {
                             <MenuList>
 
                                 <MenuItem>{userData.name}</MenuItem>
-                                <MenuItem>{userData.email}</MenuItem>
+
                                 <MenuItem>{userData.role}</MenuItem>
 
 
